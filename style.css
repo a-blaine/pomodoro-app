@@ -1,7 +1,7 @@
 :root {
   font-size: 1.1rem;
   --color-primary: #27296d;
-  --color-secondary: #f4cff6;
+  --color-secondary: rgb(248, 150, 165);
   --color-font: #9a8bdd;
   --color-shadow: #5e63b6;
 }
@@ -32,12 +32,6 @@ h1 {
 
 i {
   font-size: 2rem;
-}
-
-button {
-  border: none;
-  background: var(--color-primary);
-  cursor: pointer;
 }
 
 .container {
@@ -84,6 +78,47 @@ button {
   box-shadow: var(--color-shadow) 0px 0px 12px 1px;
 }
 
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 18rem;
+  width: 18rem;
+  background: var(--color-secondary);
+  position: relative;
+}
+
+.circle::before {
+  content: "";
+  position: aboslute;
+  height: 95%;
+  width: 95%;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
 .time {
-  font-size: 3.5rem;
+  position: relative;
+  top: -250px;
+  z-index: 3;
+  margin: 0;
+}
+
+.time p {
+  font-size: 3rem;
+}
+
+.controls {
+  margin-top: -2.5rem;
+}
+
+.controls button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.controls #reset {
+  display: none;
 }
