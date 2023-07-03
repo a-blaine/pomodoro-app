@@ -94,7 +94,6 @@ i {
 
 .circle::before {
   content: "";
-  position: aboslute;
   height: 95%;
   width: 95%;
   border-radius: 50%;

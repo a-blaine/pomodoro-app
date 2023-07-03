@@ -1,38 +1,52 @@
-let workButton = document.querySelector("#work");
-let breakButton = document.querySelector("#break");
-let playButton = document.querySelector("#play");
-let minutesElement = document.querySelector("#minutes");
-let secondsElement = document.querySelector("#seconds");
+const workButton = document.querySelector("#work");
+const breakButton = document.querySelector("#break");
+const playButton = document.querySelector("#play");
+const timeElement = document.querySelector("#countdown");
 
-let workTime = 50;
-let breakTime = 10;
+const workTime = 50;
+const breakTime = 2;
+let seconds = 0;
+let remainingTime = 0;
 
-function start(event) {
-  event.preventDefault();
+function load() {
+  timeElement.innerHTML = `${workTime} : 0${seconds}`;
+}
+
+function formatTimerInterface(time) {
+  remainingTime = time * 60;
+  let minutes = Math.floor(remainingTime / 60);
+  let countdownSeconds = remainingTime % 60;
   seconds = 59;
-  let workCountdown = workTime - 1;
-  let breakCountdown = breakTime - 1;
 
-  const countdown = () => {
-    minutesElement.innerHTML = workCountdown;
-    secondsElement.innerHTML = seconds;
+  let remainingMinutes = minutes - 1;
+
+  let start = () => {
+    timeElement.innerHTML = `${remainingMinutes} : ${seconds}`;
     seconds = seconds - 1;
 
     if (seconds < 10) {
       seconds = 0 + `${seconds}`;
     }
 
-    if (seconds == 0) {
-      seconds = 59;
-      workCountdown = workCountdown - 1;
+    if (remainingMinutes < 10) {
+      remainingMinutes = 0 + `${minutes}`;
     }
   };
 
-  setInterval(countdown, 1000);
+  setInterval(start, 1000);
+}
+
+function setCountdown(event) {
+  event.preventDefault();
+  if (workButton.classList.contains("active")) {
+    formatTimerInterface(workTime);
+  } else {
+    formatTimerInterface(breakTime);
+  }
 }
 
 function setTimer(time) {
-  minutesElement.innerHTML = time;
+  timeElement.innerHTML = `${time} : 0${seconds}`;
   if (workButton.classList.contains("active")) {
     breakButton.classList.toggle("active");
     workButton.classList.toggle("active");
@@ -42,15 +56,16 @@ function setTimer(time) {
   }
 }
 
-playButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  start();
-});
+playButton.addEventListener("click", setCountdown);
+
 breakButton.addEventListener("click", (event) => {
   event.preventDefault();
   setTimer(breakTime);
 });
+
 workButton.addEventListener("click", (event) => {
   event.preventDefault();
   setTimer(workTime);
 });
+
+load();
