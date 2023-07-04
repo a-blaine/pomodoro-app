@@ -2,9 +2,11 @@ const workButton = document.querySelector("#work");
 const breakButton = document.querySelector("#break");
 const playButton = document.querySelector("#play");
 const timeElement = document.querySelector("#countdown");
+const resetButton = document.querySelector("#reset");
+const stopButton = document.querySelector("#stop");
 
 const workTime = 25;
-const breakTime = 5;
+const breakTime = 1;
 let seconds = 0;
 
 function load() {
@@ -13,6 +15,10 @@ function load() {
 
 function formatTimerInterface(time) {
   let minutes = time;
+  playButton.classList.remove("show");
+  playButton.classList.add("hide");
+  stopButton.classList.remove("hide");
+  stopButton.classList.add("show");
 
   const start = () => {
     if (seconds <= 0) {
@@ -62,7 +68,17 @@ function setTimer(time) {
   }
 }
 
+function resetCountdown(event) {
+  event.preventDefault();
+  if (breakButton.classList.contains("active")) {
+    formatTimerInterface(breakTime);
+  } else {
+    formatTimerInterface(workTime);
+  }
+}
+
 playButton.addEventListener("click", setCountdown);
+resetButton.addEventListener("click", resetCountdown);
 
 breakButton.addEventListener("click", (event) => {
   event.preventDefault();

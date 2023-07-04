@@ -119,8 +119,21 @@ i {
   border: none;
   background: transparent;
   cursor: pointer;
+  margin: auto 15px;
 }
 
-.controls #reset {
+.controls i {
+  transition: all 200ms linear;
+}
+
+.controls i:hover {
+  color: var(--color-shadow);
+}
+
+.show {
+  display: inline-block;
+}
+
+.hide {
   display: none;
 }
