@@ -6,7 +6,7 @@ const resetButton = document.querySelector("#reset");
 const stopButton = document.querySelector("#stop");
 
 const workTime = 25;
-const breakTime = 1;
+const breakTime = 5;
 let seconds = 0;
 
 function load() {
@@ -68,17 +68,7 @@ function setTimer(time) {
   }
 }
 
-function resetCountdown(event) {
-  event.preventDefault();
-  if (breakButton.classList.contains("active")) {
-    formatTimerInterface(breakTime);
-  } else {
-    formatTimerInterface(workTime);
-  }
-}
-
 playButton.addEventListener("click", setCountdown);
-resetButton.addEventListener("click", resetCountdown);
 
 breakButton.addEventListener("click", (event) => {
   event.preventDefault();
