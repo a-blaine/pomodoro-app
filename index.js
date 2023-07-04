@@ -3,37 +3,43 @@ const breakButton = document.querySelector("#break");
 const playButton = document.querySelector("#play");
 const timeElement = document.querySelector("#countdown");
 
-const workTime = 50;
-const breakTime = 2;
+const workTime = 25;
+const breakTime = 5;
 let seconds = 0;
-let remainingTime = 0;
 
 function load() {
   timeElement.innerHTML = `${workTime} : 0${seconds}`;
 }
 
 function formatTimerInterface(time) {
-  remainingTime = time * 60;
-  let minutes = Math.floor(remainingTime / 60);
-  let countdownSeconds = remainingTime % 60;
-  seconds = 59;
+  let minutes = time;
 
-  let remainingMinutes = minutes - 1;
+  const start = () => {
+    if (seconds <= 0) {
+      minutes--;
+      seconds = 60;
+      seconds--;
 
-  let start = () => {
-    timeElement.innerHTML = `${remainingMinutes} : ${seconds}`;
-    seconds = seconds - 1;
+      if (minutes < 10) {
+        minutes = 0 + `${minutes}`;
+      }
+    } else {
+      seconds--;
+    }
 
     if (seconds < 10) {
       seconds = 0 + `${seconds}`;
     }
 
-    if (remainingMinutes < 10) {
-      remainingMinutes = 0 + `${minutes}`;
+    if (minutes <= 0 && seconds <= 0) {
+      timeElement.innerHTML = `00 : 00`;
+      clearInterval(timer);
     }
+
+    timeElement.innerHTML = `${minutes} : ${seconds}`;
   };
 
-  setInterval(start, 1000);
+  const timer = setInterval(start, 1000);
 }
 
 function setCountdown(event) {
@@ -48,11 +54,11 @@ function setCountdown(event) {
 function setTimer(time) {
   timeElement.innerHTML = `${time} : 0${seconds}`;
   if (workButton.classList.contains("active")) {
-    breakButton.classList.toggle("active");
-    workButton.classList.toggle("active");
+    breakButton.classList.add("active");
+    workButton.classList.remove("active");
   } else {
-    breakButton.classList.toggle("active");
-    workButton.classList.toggle("active");
+    breakButton.classList.remove("active");
+    workButton.classList.add("active");
   }
 }
 
